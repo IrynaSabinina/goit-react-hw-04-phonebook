@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Form } from './Form/Form';
 import { ContactsList } from './Contacts/ContactsList';
 import { FindElement } from './FindElement/FindElement';
-import { useEffect } from 'react';
 
 export const App = () => {
   const [contacts, setContacts] = useState(() => {
@@ -19,10 +18,9 @@ export const App = () => {
   const [filter, setFilter] = useState('');
 
   const onSubmitHandlerAddContacts = data => {
-    console.log(data);
     contacts.find(contact => contact.name === data.name)
       ? alert('This contacts allrady in')
-      : setContacts(prevState => [...prevState.contacts, data]);
+      : setContacts(prevState => [...prevState, data]);
   };
 
   const hendleChangeFindElement = ({ target: { value } }) => {
@@ -34,16 +32,6 @@ export const App = () => {
       name.toUpperCase().includes(filter.toUpperCase())
     );
   };
-
-  // componentDidMount() {
-  //   if (localStorage.getItem('contacts')) {
-  //     this.setState({ contacts: JSON.parse(localStorage.getItem('contacts')) });
-  //   }
-  // }
-
-  useEffect(() => {
-    localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
 
   const contactDelete = key => {
     setContacts(contacts.filter(contact => contact.id !== key));

@@ -3,10 +3,9 @@ import { nanoid } from 'nanoid';
 import styles from './Form.module.css';
 import PropTypes from 'prop-types';
 
-export const Form = () => {
+export const Form = ({ onSubmit }) => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  const [id, setId] = useState('');
 
   const handleChange = event => {
     const { name, value } = event.target;
@@ -25,9 +24,7 @@ export const Form = () => {
   const handleSubmit = evt => {
     evt.preventDefault();
     const id = nanoid();
-    console.log(id);
-    setId(id);
-    console.log({ id });
+    onSubmit({ name, number, id });
     resetInput();
   };
 
@@ -67,6 +64,10 @@ export const Form = () => {
       </button>
     </form>
   );
+};
+
+Form.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
 };
 
 // export class Form extends Component {
