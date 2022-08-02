@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Form } from './Form/Form';
 import { ContactsList } from './Contacts/ContactsList';
 import { FindElement } from './FindElement/FindElement';
+import { useEffect } from 'react';
 
 export const App = () => {
   const [contacts, setContacts] = useState(() => {
@@ -16,6 +17,10 @@ export const App = () => {
   });
 
   const [filter, setFilter] = useState('');
+
+  useEffect(() => {
+    localStorage.setItem('contacts', JSON.stringify(contacts));
+  }, [contacts]);
 
   const onSubmitHandlerAddContacts = data => {
     contacts.find(contact => contact.name === data.name)
